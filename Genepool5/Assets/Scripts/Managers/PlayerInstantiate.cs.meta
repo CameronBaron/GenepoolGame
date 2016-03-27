@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8e8e82685ac156d4b8b5986039761b53
+timeCreated: 1447562279
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ChickenPrefab: {fileID: 188722, guid: 95ebe55700d3a14418d83b30abf10379, type: 2}
+  - RhinoPrefab: {fileID: 134882, guid: bb8dbe36d3d1c32459a7e4bfc5ae759a, type: 2}
+  - SharkPrefab: {fileID: 158902, guid: 1c10eef4c22ebe049b9903a3a8de1694, type: 2}
+  - TigerPrefab: {fileID: 180620, guid: 7c57d1c746da1cd43bba74b0845f04eb, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

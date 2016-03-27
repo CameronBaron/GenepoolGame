@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: eae7d6c35cd19b542a462ee68bad9646
+timeCreated: 1446628819
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - primary: {instanceID: 0}
+  - secondary: {instanceID: 0}
+  - aK47Prefab: {fileID: 190508, guid: 1be04470b5b5eb741bd240960c2fa551, type: 2}
+  - flameThrowerPrefab: {fileID: 199016, guid: 8efd4ad9890714f45837da9ddc8ecd05, type: 2}
+  - rocketLauncherPrefab: {fileID: 144168, guid: e8f272ec500536549a12217901073e37,
+      type: 2}
+  - shotgunPrefab: {fileID: 136454, guid: 49f074ad08ad3c84d8a8c1ab313fc379, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 85a0fc29669ffcf479de252786144633
+timeCreated: 1446596352
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Genepool_Rhino:Genepool_Basemodel:pCube1
+    100002: Genepool_Rhino:Genepool_Basemodel:pCube2
+    100004: Genepool_Rhino:Genepool_Basemodel:pCube3
+    100006: Genepool_Rhino:Genepool_Basemodel:transform1
+    100008: Genepool_Rhino:Genepool_Basemodel:transform2
+    100010: Genepool_Rhino:pCube1
+    100012: Genepool_Rhino:pCube2
+    100014: Genepool_Rhino:pCube3
+    100016: Genepool_Rhino:pCube4
+    100018: Genepool_Rhino:pCube5
+    100020: Genepool_Rhino:pCube6
+    100022: Genepool_Rhino:pCube7
+    100024: Genepool_Rhino:polySurface1
+    100026: Genepool_Rhino:polySurface12
+    100028: Genepool_Rhino:polySurface2
+    100030: Genepool_Rhino:polySurface4
+    100032: Genepool_Rhino:polySurface4 1
+    100034: Genepool_Rhino:polySurface5
+    100036: Genepool_Rhino:polySurface6
+    100038: Genepool_Rhino:polySurface7
+    100040: Genepool_Rhino:polySurface8
+    100042: Genepool_Rhino:polySurface8 1
+    100044: Genepool_Rhino:polySurface9
+    100046: Genepool_Rhino:transform1
+    100048: Genepool_Rhino:transform10
+    100050: Genepool_Rhino:transform11
+    100052: Genepool_Rhino:transform12
+    100054: Genepool_Rhino:transform13
+    100056: Genepool_Rhino:transform14
+    100058: Genepool_Rhino:transform15
+    100060: Genepool_Rhino:transform16
+    100062: Genepool_Rhino:transform17
+    100064: Genepool_Rhino:transform18
+    100066: Genepool_Rhino:transform2
+    100068: Genepool_Rhino:transform3
+    100070: Genepool_Rhino:transform4
+    100072: Genepool_Rhino:transform5
+    100074: Genepool_Rhino:transform6
+    100076: Genepool_Rhino:transform7
+    100078: Genepool_Rhino:transform8
+    100080: Genepool_Rhino:transform9
+    100082: //RootNode
+    100084: Head_joint
+    100086: HeadRoot_Joint
+    100088: HeadTop_joint
+    100090: Left_Ankle_joint
+    100092: Left_Arm_joint
+    100094: Left_Elbow_joint
+    100096: Left_Foot_joint
+    100098: Left_Index1_joint
+    100100: Left_Index_joint
+    100102: Left_knee_joint
+    100104: Left_Leg_joint
+    100106: Left_Middle1_joint
+    100108: Left_Middle_joint
+    100110: Left_pinky1_joint
+    100112: Left_pinky_joint
+    100114: Left_ring1_joint
+    100116: Left_Ring_joint
+    100118: Left_Shoulder_joint
+    100120: Left_Thumb1_joint
+    100122: Left_Thumb_joint
+    100124: Left_Toes_joint
+    100126: Left_Wrist_joint
+    100128: NeckBase_joint
+    100130: Pelvis_joint
+    100132: Right_Ankle_joint
+    100134: Right_Arm_joint
+    100136: Right_Elbow_joint
+    100138: Right_Foot_joint
+    100140: Right_Index1_joint
+    100142: Right_Index_joint
+    100144: Right_knee_joint
+    100146: Right_Leg_joint
+    100148: Right_Middle1_joint
+    100150: Right_Middle_joint
+    100152: Right_pinky1_joint
+    100154: Right_pinky_joint
+    100156: Right_ring1_joint
+    100158: Right_Ring_joint
+    100160: Right_Shoulder_joint
+    100162: Right_Thumb1_joint
+    100164: Right_Thumb_joint
+    100166: Right_Toes_joint
+    100168: Right_Wrist_joint
+    100170: Spine1_joint
+    100172: Spine2_joint
+    100174: Spine3_joint
+    100176: SpineRoot_joint
+    400000: Genepool_Rhino:Genepool_Basemodel:pCube1
+    400002: Genepool_Rhino:Genepool_Basemodel:pCube2
+    400004: Genepool_Rhino:Genepool_Basemodel:pCube3
+    400006: Genepool_Rhino:Genepool_Basemodel:transform1
+    400008: Genepool_Rhino:Genepool_Basemodel:transform2
+    400010: Genepool_Rhino:pCube1
+    400012: Genepool_Rhino:pCube2
+    400014: Genepool_Rhino:pCube3
+    400016: Genepool_Rhino:pCube4
+    400018: Genepool_Rhino:pCube5
+    400020: Genepool_Rhino:pCube6
+    400022: Genepool_Rhino:pCube7
+    400024: Genepool_Rhino:polySurface1
+    400026: Genepool_Rhino:polySurface12
+    400028: Genepool_Rhino:polySurface2
+    400030: Genepool_Rhino:polySurface4
+    400032: Genepool_Rhino:polySurface4 1
+    400034: Genepool_Rhino:polySurface5
+    400036: Genepool_Rhino:polySurface6
+    400038: Genepool_Rhino:polySurface7
+    400040: Genepool_Rhino:polySurface8
+    400042: Genepool_Rhino:polySurface8 1
+    400044: Genepool_Rhino:polySurface9
+    400046: Genepool_Rhino:transform1
+    400048: Genepool_Rhino:transform10
+    400050: Genepool_Rhino:transform11
+    400052: Genepool_Rhino:transform12
+    400054: Genepool_Rhino:transform13
+    400056: Genepool_Rhino:transform14
+    400058: Genepool_Rhino:transform15
+    400060: Genepool_Rhino:transform16
+    400062: Genepool_Rhino:transform17
+    400064: Genepool_Rhino:transform18
+    400066: Genepool_Rhino:transform2
+    400068: Genepool_Rhino:transform3
+    400070: Genepool_Rhino:transform4
+    400072: Genepool_Rhino:transform5
+    400074: Genepool_Rhino:transform6
+    400076: Genepool_Rhino:transform7
+    400078: Genepool_Rhino:transform8
+    400080: Genepool_Rhino:transform9
+    400082: //RootNode
+    400084: Head_joint
+    400086: HeadRoot_Joint
+    400088: HeadTop_joint
+    400090: Left_Ankle_joint
+    400092: Left_Arm_joint
+    400094: Left_Elbow_joint
+    400096: Left_Foot_joint
+    400098: Left_Index1_joint
+    400100: Left_Index_joint
+    400102: Left_knee_joint
+    400104: Left_Leg_joint
+    400106: Left_Middle1_joint
+    400108: Left_Middle_joint
+    400110: Left_pinky1_joint
+    400112: Left_pinky_joint
+    400114: Left_ring1_joint
+    400116: Left_Ring_joint
+    400118: Left_Shoulder_joint
+    400120: Left_Thumb1_joint
+    400122: Left_Thumb_joint
+    400124: Left_Toes_joint
+    400126: Left_Wrist_joint
+    400128: NeckBase_joint
+    400130: Pelvis_joint
+    400132: Right_Ankle_joint
+    400134: Right_Arm_joint
+    400136: Right_Elbow_joint
+    400138: Right_Foot_joint
+    400140: Right_Index1_joint
+    400142: Right_Index_joint
+    400144: Right_knee_joint
+    400146: Right_Leg_joint
+    400148: Right_Middle1_joint
+    400150: Right_Middle_joint
+    400152: Right_pinky1_joint
+    400154: Right_pinky_joint
+    400156: Right_ring1_joint
+    400158: Right_Ring_joint
+    400160: Right_Shoulder_joint
+    400162: Right_Thumb1_joint
+    400164: Right_Thumb_joint
+    400166: Right_Toes_joint
+    400168: Right_Wrist_joint
+    400170: Spine1_joint
+    400172: Spine2_joint
+    400174: Spine3_joint
+    400176: SpineRoot_joint
+    4300000: Genepool_Rhino:polySurface8
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Genepool_Rhino:polySurface8
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

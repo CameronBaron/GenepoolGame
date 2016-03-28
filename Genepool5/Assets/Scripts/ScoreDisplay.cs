@@ -14,6 +14,7 @@ public class ScoreDisplay : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		ranking.Clear();
 		GM.players.Sort((p1, p2) => p2.GetComponent<Player>().score.CompareTo(p1.GetComponent<Player>().score));
 		WinnerText();
 		DisplayScores();

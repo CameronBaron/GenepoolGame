@@ -13,7 +13,9 @@ public class Melee : MonoBehaviour
     // On start
     void Start()
 	{
-        device = GetComponentInParent<Player>().Device;
+        device = GetComponentInParent<PlayerController>().Device;
+		if (device == null)
+			Destroy(this);
     }
 
     void OnCollisionStay(Collision col)

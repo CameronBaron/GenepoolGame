@@ -151,7 +151,7 @@ namespace InControl
 		}
 
 
-		internal override BindingSourceType BindingSourceType
+		public override BindingSourceType BindingSourceType
 		{
 			get
 			{

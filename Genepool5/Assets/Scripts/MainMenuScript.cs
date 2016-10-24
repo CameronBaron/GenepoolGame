@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class MainMenuScript : MonoBehaviour
 	void Start ()
 	{
 		GM = GameManager.Instance;
-		GM.chosenType.Clear();
+		//GM.chosenType.Clear();
 		GM.players.Clear();
 		GM.isPlaying.Clear();
 		GM.devices.Clear();
@@ -64,7 +65,7 @@ public class MainMenuScript : MonoBehaviour
 
 	public void LoadNext()
 	{
-		Application.LoadLevel((int)GameState.CHARACTERS);
+		SceneManager.LoadScene((int)GameState.CHARACTERS, LoadSceneMode.Single);
 	}
 
     public void ExitGame()

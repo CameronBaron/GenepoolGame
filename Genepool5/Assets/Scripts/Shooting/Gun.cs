@@ -22,7 +22,7 @@ public class Gun : MonoBehaviour
     private float timer;
     private bool semiLock;
     private float fireDelay;
-	private Player player;
+	private PlayerController player;
     private InputDevice device;
 
     // Use this for initialization
@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
         semiLock = false;
         fireDelay = (1.0f / fireRate);
         timer = fireDelay;
-		player = GetComponentInParent<Player>();
+		player = GetComponentInParent<PlayerController>();
         device = player.Device;
     }
 	
@@ -111,7 +111,7 @@ public class Gun : MonoBehaviour
 
             Physics.IgnoreLayerCollision(8, 8);
 			proj.GetComponent<BulletDamage>().damage = damage;
-            proj.GetComponent<BulletDamage>().shooter = gameObject.GetComponentInParent<Player>();
+            proj.GetComponent<BulletDamage>().shooter = gameObject.GetComponentInParent<PlayerController>();
 
             shooting = true;
 			//GetComponentInParent<Player>().stats.bulletsFired += 1;

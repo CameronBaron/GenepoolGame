@@ -20,7 +20,7 @@ namespace InControl
 	/// added by users, most likely at runtime in a settings menu or the like. There are no
 	/// other distinctions between these groupings; they are purely for organizational convenience.
 	/// </summary>
-	public class PlayerAction : InputControlBase
+	public class PlayerAction : OneAxisInputControl
 	{
 		/// <summary>
 		/// The unique identifier for this action within the context of its owning action set.
@@ -223,8 +223,8 @@ namespace InControl
 
 
 		/// <summary>
-		/// Add a regular binding to the action replacing an existing binding. A binding cannot be 
-		/// added if is already bound to another action. If the binding to replace is not present 
+		/// Add a regular binding to the action replacing an existing binding. A binding cannot be
+		/// added if is already bound to another action. If the binding to replace is not present
 		/// on this action, the binding will not be added.
 		/// </summary>
 		/// <returns><c>true</c>, if binding was added, <c>false</c> otherwise.</returns>
@@ -250,10 +250,8 @@ namespace InControl
 				return false;
 			}
 
-			Debug.Log( "index = " + index );
-
 			findBinding.BoundTo = null;
-			regularBindings[index] = withBinding;				
+			regularBindings[index] = withBinding;
 			withBinding.BoundTo = this;
 
 			index = visibleBindings.IndexOf( findBinding );
@@ -448,19 +446,19 @@ namespace InControl
 
 		/// <summary>
 		/// Begin listening for a new user defined binding.
-		/// Which types of BindingSource are detected depends on the value of ListenOptions and DefaultListenOptions. 
+		/// Which types of BindingSource are detected depends on the value of ListenOptions and DefaultListenOptions.
 		/// Once one is found, it will be added to the regular bindings for the action and listening will stop.
 		/// </summary>
 		public void ListenForBinding()
 		{
-			ListenForBindingReplacing( null );			
+			ListenForBindingReplacing( null );
 		}
 
 
 		/// <summary>
-		/// Begin listening for a new user defined binding, replacing an existing specified binding. 
+		/// Begin listening for a new user defined binding, replacing an existing specified binding.
 		/// If the binding to replace is not present on this action, the new binding will fail to be added.
-		/// Which types of BindingSource are detected depends on the value of ListenOptions and DefaultListenOptions. 
+		/// Which types of BindingSource are detected depends on the value of ListenOptions and DefaultListenOptions.
 		/// Once one is found, it will be added to the regular bindings for the action and listening will stop.
 		/// </summary>
 		public void ListenForBindingReplacing( BindingSource binding )
@@ -756,4 +754,3 @@ namespace InControl
 		}
 	}
 }
-

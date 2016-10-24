@@ -15,7 +15,7 @@ public class ScoreDisplay : MonoBehaviour
 	void Start()
 	{
 		ranking.Clear();
-		GM.players.Sort((p1, p2) => p2.GetComponent<Player>().score.CompareTo(p1.GetComponent<Player>().score));
+		GM.players.Sort((p1, p2) => p2.GetComponent<PlayerController>().stats.score.CompareTo(p1.GetComponent<PlayerController>().stats.score));
 		WinnerText();
 		DisplayScores();
     }
@@ -25,7 +25,7 @@ public class ScoreDisplay : MonoBehaviour
 		//if first in list has a colour of blue
 		//winnerText.text = "BLUE WINS"
 		//winnerText.tex.colour = Color.Blue
-		winnerText.color = GM.players[0].GetComponent<Player>().colour;
+		winnerText.color = GM.players[0].GetComponent<PlayerController>().colour;
 
 		if (winnerText.color == Color.blue)
 		{

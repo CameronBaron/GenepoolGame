@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 using InControl;
 
 public class PlayScene : MonoBehaviour
@@ -70,12 +70,12 @@ public class PlayScene : MonoBehaviour
 
 	public void LoadWINScene()
 	{
-		Application.LoadLevel((int)GameState.WIN);
+		SceneManager.LoadScene((int)GameState.WIN);
 	}
 
 	public void LoadMenu()
-	{
-		Application.LoadLevel((int)GameState.MENU);
+	{ 
+		SceneManager.LoadScene((int)GameState.MENU);
 	}	
 
 }

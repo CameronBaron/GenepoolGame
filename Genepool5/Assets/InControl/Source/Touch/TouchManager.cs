@@ -1,8 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
-using System.Collections;
 
 
 namespace InControl
@@ -162,8 +162,7 @@ namespace InControl
 
 		void CreateDevice()
 		{
-			device = new InputDevice( "TouchDevice" );
-			device.RawSticks = true;
+			device = new TouchInputDevice();
 
 			device.AddControl( InputControlType.LeftStickLeft, "LeftStickLeft" );
 			device.AddControl( InputControlType.LeftStickRight, "LeftStickRight" );
@@ -286,7 +285,7 @@ namespace InControl
 		{
 			activeTouches.Clear();
 
-			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_WEBGL
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_WEBGL || UNITY_WSA
 			if (mouseTouch.SetWithMouseData( updateTick, deltaTime ))
 			{
 				activeTouches.Add( mouseTouch );
@@ -680,4 +679,3 @@ namespace InControl
 		}
 	}
 }
-

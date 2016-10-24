@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using InControl;
+using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class LevelSelectManager : MonoBehaviour
 	}
 	public void LoadMenu()
 	{
-		Application.LoadLevel((int)GameState.MENU);
+		SceneManager.LoadScene((int)GameState.MENU);
 	}
 
 	//Handle Change State to Arena1

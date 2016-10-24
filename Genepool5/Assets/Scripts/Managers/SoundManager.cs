@@ -30,7 +30,6 @@ public class SoundManager : MonoBehaviour
 
     //Privates
     private static List<AudioSource> audioSrc = new List<AudioSource>();
-    private GameManager gm;
 
     // Use this for initialization
     void Awake()
@@ -47,7 +46,6 @@ public class SoundManager : MonoBehaviour
 
 
 		//Setting the currect scene music depending on the gamestate.
-		gm = GameManager.Instance;
 
 		for (int i = 0; i < 20; ++i)
         {

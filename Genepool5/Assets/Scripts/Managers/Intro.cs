@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Intro : MonoBehaviour
 {
@@ -27,6 +28,6 @@ public class Intro : MonoBehaviour
 
 	public void LoadLevel()
 	{
-		Application.LoadLevel("MainMenu");
+		SceneManager.LoadScene((int)GameState.MENU);
 	}
 }

@@ -25,7 +25,7 @@ public class FlamethowerSounds : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        device = GetComponentInParent<Player>().Device;
+        device = GetComponentInParent<PlayerController>().Device;
         eSoundMode = SoundMode.IDLE;
 	}
 	

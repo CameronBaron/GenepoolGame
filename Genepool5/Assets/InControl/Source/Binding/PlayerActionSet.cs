@@ -9,15 +9,15 @@ namespace InControl
 {
 	/// <summary>
 	/// An action set represents a set of actions, usually for a single player. This class must be subclassed to be used.
-	/// An action set can contain both explicit, bindable single value actions (for example, "Jump", "Left" and "Right") and implicit, 
+	/// An action set can contain both explicit, bindable single value actions (for example, "Jump", "Left" and "Right") and implicit,
 	/// aggregate actions which combine together other actions into one or two axes, for example "Move", which might consist
-	/// of "Left", "Right", "Up" and "Down" filtered into a single two-axis control with its own applied circular deadzone, 
+	/// of "Left", "Right", "Up" and "Down" filtered into a single two-axis control with its own applied circular deadzone,
 	/// queryable vector value, etc.
 	/// </summary>
 	public abstract class PlayerActionSet
 	{
 		/// <summary>
-		/// The device which this set should query from, if applicable. 
+		/// The device which this set should query from, if applicable.
 		/// When set to <c>null</c> this set will query <see cref="InputManager.ActiveDevice" /> when required.
 		/// </summary>
 		public InputDevice Device { get; set; }
@@ -126,6 +126,24 @@ namespace InControl
 			var action = new PlayerTwoAxisAction( negativeXAction, positiveXAction, negativeYAction, positiveYAction );
 			twoAxisActions.Add( action );
 			return action;
+		}
+
+
+		/// <summary>
+		/// Gets the action with the specified action name. If the action does not exist, <c>null</c> is returned.
+		/// </summary>
+		/// <param name="actionName">The name of the action to get.</param>
+		public PlayerAction this[ string actionName ]
+		{
+			get
+			{
+				PlayerAction action;
+				if (actionsByName.TryGetValue( actionName, out action ))
+				{
+					return action;
+				}
+				throw new KeyNotFoundException( "Action '" + actionName + "' does not exist in this action set." );
+			}
 		}
 
 
@@ -250,7 +268,7 @@ namespace InControl
 
 
 		/// <summary>
-		/// Returns the state of this action set and all bindings encoded into a string 
+		/// Returns the state of this action set and all bindings encoded into a string
 		/// that you can save somewhere.
 		/// Pass this string to Load() to restore the state of this action set.
 		/// </summary>
@@ -293,7 +311,7 @@ namespace InControl
 			{
 				return;
 			}
-				
+
 			try
 			{
 				using (var stream = new MemoryStream( Convert.FromBase64String( data ) ))
@@ -330,4 +348,3 @@ namespace InControl
 		}
 	}
 }
-

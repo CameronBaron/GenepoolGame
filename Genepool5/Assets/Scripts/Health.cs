@@ -7,14 +7,6 @@ public class Health : MonoBehaviour
 	public float hurtForce = 10f;                   // The force with which the player is pushed when hurt.
 
 	private bool killable = true;
-	private Rigidbody body;
-
-	// Use this for initialization
-	void Awake ()
-    {
-		// Set References.
-		body = GetComponent<Rigidbody>();
-    }
 
 	/// <summary>
 	/// Pass in an int to adjust this current health value.
@@ -61,8 +53,8 @@ public class Health : MonoBehaviour
 
 			if (gameObject.CompareTag("Player") && currentHP < 1 && killable)
 			{
-				col.gameObject.GetComponent<BulletDamage>().shooter.score += gameObject.GetComponent<Player>().scoreValue;
-				gameObject.GetComponent<Player>().deaths += 1;
+				col.gameObject.GetComponent<BulletDamage>().shooter.stats.score += gameObject.GetComponent<PlayerController>().scoreValue;
+				gameObject.GetComponent<PlayerController>().stats.deaths += 1;
                 killable = false;
 				return;
 			}		

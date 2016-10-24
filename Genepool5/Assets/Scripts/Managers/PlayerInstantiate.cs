@@ -2,10 +2,7 @@
 
 public class PlayerInstantiate : MonoBehaviour
 {
-	public GameObject ChickenPrefab;
-	public GameObject RhinoPrefab;
-	public GameObject SharkPrefab;
-	public GameObject TigerPrefab;
+	public GameObject PlayerPrefab;
 	public Color[] colours = new Color[] { Color.yellow, Color.red, Color.blue, Color.green };
 	public float respawnTimer = 2.0f;
 
@@ -23,28 +20,9 @@ public class PlayerInstantiate : MonoBehaviour
 		for (int i = 0; i < GM.isPlaying.Count; i++)
 		{
 			GameObject spawn = GetSpawn(i + 1);
-			var player = Instantiate(SelectedChar(GM.chosenType[i + 1]), spawn.transform.position, Quaternion.identity) as GameObject;
-			player.GetComponent<Player>().Device = GM.devices[i];
-			SetSpawn(player, i + 1, spawn);
-			player.tag = "Player";
-			if (player.GetComponent<Player>().indicator != null)
-			{
-				player.GetComponent<Player>().indicator.GetComponent<Renderer>().material.SetColor("_EmissionColor", colours[i]);
-				player.GetComponent<Player>().colour = colours[i];
-            }
+			var player = Instantiate(PlayerPrefab, spawn.transform.position, Quaternion.identity) as GameObject;
+			player.GetComponent<PlayerController>().SetupPlayer(colours[i], i, spawn.transform);
 			GM.players.Add(player);
-			DontDestroyOnLoad(player);
-		}
-	}
-
-	GameObject SelectedChar(BasePlayer.PLAYERTYPE type)
-	{
-		switch (type)
-		{
-			case BasePlayer.PLAYERTYPE.SHARK: return SharkPrefab;
-			case BasePlayer.PLAYERTYPE.TIGER: return TigerPrefab;
-			case BasePlayer.PLAYERTYPE.RHINO: return RhinoPrefab;
-			default: return ChickenPrefab;
 		}
 	}
 
@@ -58,11 +36,5 @@ public class PlayerInstantiate : MonoBehaviour
 			}
 		}
 		return null;
-	}
-
-	private void SetSpawn(GameObject p, int id, GameObject spawn)
-	{
-		p.GetComponent<Player>().playerID = id;
-		p.GetComponent<Player>().spawnPos = spawn;
 	}
 }

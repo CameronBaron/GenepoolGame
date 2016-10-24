@@ -7,7 +7,7 @@ public class PlayerDeath : MonoBehaviour
 	public float vibrateTimer = 0.5f;
 	public float respawnTimer = 2.0f;
 
-	private Player player { get { return gameObject.GetComponent<Player>(); } }
+	private PlayerController player { get { return gameObject.GetComponent<PlayerController>(); } }
 	private InputDevice device;
 	
 	void Start ()

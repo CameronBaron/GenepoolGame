@@ -13,8 +13,8 @@ namespace InControl
 		const float deviceRefreshInterval = 1.0f;
 		float deviceRefreshTimer = 0.0f;
 
-		List<InputDeviceProfile> systemDeviceProfiles = new List<InputDeviceProfile>();
-		List<InputDeviceProfile> customDeviceProfiles = new List<InputDeviceProfile>();
+		List<UnityInputDeviceProfileBase> systemDeviceProfiles = new List<UnityInputDeviceProfileBase>( UnityInputDeviceProfileList.Profiles.Length );
+		List<UnityInputDeviceProfileBase> customDeviceProfiles = new List<UnityInputDeviceProfileBase>();
 
 		string[] joystickNames;
 		int lastJoystickCount;
@@ -43,14 +43,7 @@ namespace InControl
 				if (JoystickInfoHasChanged)
 				{
 					Logger.LogInfo( "Change in attached Unity joysticks detected; refreshing device list." );
-//					#if UNITY_XBOXONE
-//					if (joystickCount < lastJoystickCount)
-//					{
-//						DetachDevices();
-//					}
-//					#else
 					DetachDevices();
-//					#endif
 					AttachDevices();
 				}
 			}
@@ -214,7 +207,7 @@ namespace InControl
 				}
 			}
 
-			InputDeviceProfile deviceProfile = null;
+			UnityInputDeviceProfileBase deviceProfile = null;
 
 			if (deviceProfile == null)
 			{
@@ -238,17 +231,16 @@ namespace InControl
 
 			if (deviceProfile == null)
 			{
-//				Debug.Log( "[InControl] Joystick " + unityJoystickId + ": \"" + unityJoystickName + "\"" );
-				Logger.LogWarning( "Device " + unityJoystickId + " with name \"" + unityJoystickName + "\" does not match any supported profiles and will be considered an unknown controller." );
-				var unknownDeviceProfile = new UnknownUnityDeviceProfile( unityJoystickName );
-				var joystickDevice = new UnknownUnityInputDevice( unknownDeviceProfile, unityJoystickId );
+				var joystickDevice = new UnityInputDevice( unityJoystickId, unityJoystickName );
 				AttachDevice( joystickDevice );
+				Debug.Log( "[InControl] Joystick " + unityJoystickId + ": \"" + unityJoystickName + "\"" );
+				Logger.LogWarning( "Device " + unityJoystickId + " with name \"" + unityJoystickName + "\" does not match any supported profiles and will be considered an unknown controller." );
 				return;
 			}
 
 			if (!deviceProfile.IsHidden)
 			{
-				var joystickDevice = new UnityInputDevice( deviceProfile, unityJoystickId );
+				var joystickDevice = new UnityInputDevice( deviceProfile, unityJoystickId, unityJoystickName );
 				AttachDevice( joystickDevice );
 //				Debug.Log( "[InControl] Joystick " + unityJoystickId + ": \"" + unityJoystickName + "\"" );
 				Logger.LogInfo( "Device " + unityJoystickId + " matched profile " + deviceProfile.GetType().Name + " (" + deviceProfile.Name + ")" );

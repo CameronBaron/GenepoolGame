@@ -16,9 +16,7 @@ namespace InControl
 		void OnEnable()
 		{
 			touchManager = target as TouchManager;
-
-			var path = AssetDatabase.GetAssetPath( MonoScript.FromScriptableObject( this ) );
-			headerTexture = EditorUtility.LoadAssetAtPath<Texture>( Path.GetDirectoryName( path ) + "/Images/TouchManagerHeader.png" );
+			headerTexture = Internal.EditorTextures.TouchManagerHeader;
 		}
 		
 		
@@ -27,8 +25,8 @@ namespace InControl
 			GUILayout.Space( 5.0f );
 			
 			var headerRect = GUILayoutUtility.GetRect( 0.0f, -22.0f );
-			headerRect.width = headerTexture.width;
-			headerRect.height = headerTexture.height;
+			headerRect.width = headerTexture.width / 2;
+			headerRect.height = headerTexture.height / 2;
 			GUILayout.Space( headerRect.height );
 
 			DrawDefaultInspector();

@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 
@@ -62,6 +58,7 @@ namespace InControl
 
 		internal static string Platform { get; private set; }
 
+		static bool applicationIsFocused;
 		static float initialTime;
 		static float currentTime;
 		static float lastUpdateTime;
@@ -108,7 +105,16 @@ namespace InControl
 
 			playerActionSets.Clear();
 
+			// TODO: Can this move further down along with the OnSetup callback?
 			IsSetup = true;
+
+			var enableUnityInput = true;
+
+			var nativeInputIsEnabled = EnableNativeInput && NativeInputDeviceManager.Enable();
+			if (nativeInputIsEnabled)
+			{
+				enableUnityInput = false;
+			}
 
 			#if UNITY_STANDALONE_WIN || UNITY_EDITOR
 			if (EnableXInput)
@@ -124,19 +130,26 @@ namespace InControl
 			}
 			#endif
 
+			#if UNITY_XBOXONE
+			if (XboxOneInputDeviceManager.Enable())
+			{
+				enableUnityInput = false;
+			}
+			#endif
+
+			// TODO: Can this move further down after the UnityInputDeviceManager is added?
+			// Currently, it allows use of InputManager.HideDevicesWithProfile()
 			if (OnSetup != null)
 			{
 				OnSetup.Invoke();
 				OnSetup = null;
 			}
 
-			var addUnityInputDeviceManager = true;
-
 			#if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
-			addUnityInputDeviceManager = false;
+			enableUnityInput = false;
 			#endif
 
-			if (addUnityInputDeviceManager)
+			if (enableUnityInput)
 			{
 				AddDeviceManager<UnityInputDeviceManager>();
 			}
@@ -203,6 +216,11 @@ namespace InControl
 				OnSetup = null;
 			}
 
+			if (SuspendInBackground && !applicationIsFocused)
+			{
+				return;
+			}
+
 			currentTick++;
 			UpdateCurrentTime();
 			var deltaTime = currentTime - lastUpdateTime;
@@ -213,9 +231,9 @@ namespace InControl
 			UpdateDevices( deltaTime );
 			CommitDevices( deltaTime );
 
-			UpdatePlayerActionSets( deltaTime );
-
 			UpdateActiveDevice();
+
+			UpdatePlayerActionSets( deltaTime );
 
 			if (OnUpdate != null)
 			{
@@ -251,7 +269,7 @@ namespace InControl
 			for (int i = 0; i < deviceCount; i++)
 			{
 				var controls = devices[i].Controls;
-				var controlCount = controls.Length;
+				var controlCount = controls.Count;
 				for (int j = 0; j < controlCount; j++)
 				{
 					var control = controls[j];
@@ -266,8 +284,8 @@ namespace InControl
 
 		/// <summary>
 		/// Clears the state of input on all controls.
-		/// The net result here should be that the state on all controls will return 
-		/// zero/false for the remainder of the current tick, and during the next update 
+		/// The net result here should be that the state on all controls will return
+		/// zero/false for the remainder of the current tick, and during the next update
 		/// tick WasPressed, WasReleased, WasRepeated and HasChanged will return false.
 		/// </summary>
 		public static void ClearInputState()
@@ -290,8 +308,15 @@ namespace InControl
 		{
 			if (!focusState)
 			{
+				if (SuspendInBackground)
+				{
+					ClearInputState();
+				}
+
 				SetZeroTickOnAllControls();
 			}
+
+			applicationIsFocused = focusState;
 		}
 
 
@@ -415,8 +440,7 @@ namespace InControl
 			for (int i = 0; i < deviceCount; i++)
 			{
 				var device = devices[i];
-				device.StopVibration();
-				device.IsAttached = false;
+				device.OnDetached();
 			}
 			devices.Clear();
 			activeDevice = InputDevice.Null;
@@ -497,16 +521,18 @@ namespace InControl
 				return;
 			}
 
-			if (devices.Contains( inputDevice ))
+			if (inputDevice.IsAttached)
 			{
-				inputDevice.IsAttached = true;
 				return;
 			}
 
-			devices.Add( inputDevice );
-			devices.Sort( ( d1, d2 ) => d1.SortOrder.CompareTo( d2.SortOrder ) );
+			if (!devices.Contains( inputDevice ))
+			{
+				devices.Add( inputDevice );
+				devices.Sort( ( d1, d2 ) => d1.SortOrder.CompareTo( d2.SortOrder ) );
+			}
 
-			inputDevice.IsAttached = true;
+			inputDevice.OnAttached();
 
 			if (OnDeviceAttached != null)
 			{
@@ -521,31 +547,24 @@ namespace InControl
 		/// <param name="inputDevice">The input device to attach.</param>
 		public static void DetachDevice( InputDevice inputDevice )
 		{
+			if (!IsSetup)
+			{
+				return;
+			}
+
 			if (!inputDevice.IsAttached)
 			{
 				return;
 			}
 
-			if (!IsSetup)
-			{
-				inputDevice.IsAttached = false;
-				return;
-			}
-
-			if (!devices.Contains( inputDevice ))
-			{
-				inputDevice.IsAttached = false;
-				return;
-			}
-
 			devices.Remove( inputDevice );
-
-			inputDevice.IsAttached = false;
 
 			if (ActiveDevice == inputDevice)
 			{
 				ActiveDevice = InputDevice.Null;
 			}
+
+			inputDevice.OnDetached();
 
 			if (OnDeviceDetached != null)
 			{
@@ -634,6 +653,24 @@ namespace InControl
 
 
 		/// <summary>
+		/// Suspend input updates when the application loses focus.
+		/// When enabled and the app loses focus, input will be cleared and no.
+		/// input updates will be processed. Input updates will resume when the app 
+		/// regains focus.
+		/// </summary>
+		public static bool SuspendInBackground { get; internal set; }
+
+
+		/// <summary>
+		/// Enable Native Input support.
+		/// When enabled on initialization, the input manager will first check
+		/// whether Native Input is supported on this platform and if so, it will add
+		/// a NativeInputDeviceManager.
+		/// </summary>
+		public static bool EnableNativeInput { get; internal set; }
+
+
+		/// <summary>
 		/// Enable XInput support (Windows only).
 		/// When enabled on initialization, the input manager will first check
 		/// whether XInput is supported on this platform and if so, it will add
@@ -651,11 +688,39 @@ namespace InControl
 
 		/// <summary>
 		/// Set the XInput buffer size. (Experimental)
-		/// Usually you want this to be zero (default). Setting it higher will introduce 
-		/// latency, but may smooth out input if querying input on FixedUpdate, which 
+		/// Usually you want this to be zero (default). Setting it higher will introduce
+		/// latency, but may smooth out input if querying input on FixedUpdate, which
 		/// tends to cluster calls at the end of a frame.
 		/// </summary>
 		public static uint XInputBufferSize { get; internal set; }
+
+
+		/// <summary>
+		/// Set Native Input on Windows to use XInput.
+		/// When set to true (default), XInput will be utilized which better supports
+		/// compatible controllers (such as Xbox 360 and Xbox One gamepads) including
+		/// vibration control and proper separated triggers, but limits the number of 
+		/// these controllers to four. Additional XInput-compatible beyond four 
+		/// controllers will be ignored.
+		/// DirectInput will be used for all non-XInput-compatible controllers.
+		/// </summary>
+		public static bool NativeInputEnableXInput { get; internal set; }
+
+
+		/// <summary>
+		/// Set Native Input to prevent system sleep and screensaver.
+		/// Controller input generally does not prevent the system idle timer and
+		/// the screensaver may come on during extended gameplay. When set to
+		/// true, this will be prevented.
+		/// </summary>
+		public static bool NativeInputPreventSleep { get; internal set; }
+
+
+		/// <summary>
+		/// Set the Native Input background thread polling rate.
+		/// When set to zero (default) it will equal the project's fixed update rate.
+		/// </summary>
+		public static uint NativeInputUpdateRate { get; internal set; }
 
 
 		/// <summary>
@@ -690,5 +755,3 @@ namespace InControl
 		}
 	}
 }
-
-

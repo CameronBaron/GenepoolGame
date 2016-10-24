@@ -13,12 +13,21 @@ namespace InControl
 		public bool invertYAxis = false;
 		public bool useFixedUpdate = false;
 		public bool dontDestroyOnLoad = false;
-
-		public bool enableXInput = false;
-		public int xInputUpdateRate = 0;
-		public int xInputBufferSize = 0;
+		public bool suspendInBackground = false;
 
 		public bool enableICade = false;
+
+		public bool enableXInput = false;
+		public bool xInputOverrideUpdateRate = false;
+		public int xInputUpdateRate = 0;
+		public bool xInputOverrideBufferSize = false;
+		public int xInputBufferSize = 0;
+
+		public bool enableNativeInput = false;
+		public bool nativeInputEnableXInput = true;
+		public bool nativeInputPreventSleep = false;
+		public bool nativeInputOverrideUpdateRate = false;
+		public int nativeInputUpdateRate = 0;
 
 		public List<string> customProfiles = new List<string>();
 
@@ -31,10 +40,17 @@ namespace InControl
 			}
 
 			InputManager.InvertYAxis = invertYAxis;
+			InputManager.SuspendInBackground = suspendInBackground;
+			InputManager.EnableICade = enableICade;
+
 			InputManager.EnableXInput = enableXInput;
 			InputManager.XInputUpdateRate = (uint) Mathf.Max( xInputUpdateRate, 0 );
 			InputManager.XInputBufferSize = (uint) Mathf.Max( xInputBufferSize, 0 );
-			InputManager.EnableICade = enableICade;
+
+			InputManager.EnableNativeInput = enableNativeInput;
+			InputManager.NativeInputEnableXInput = nativeInputEnableXInput;
+			InputManager.NativeInputUpdateRate = (uint) Mathf.Max( nativeInputUpdateRate, 0 );
+			InputManager.NativeInputPreventSleep = nativeInputPreventSleep;
 
 			if (InputManager.SetupInternal())
 			{
@@ -53,7 +69,7 @@ namespace InControl
 					}
 					else
 					{
-						var customProfileInstance = Activator.CreateInstance( classType ) as InputDeviceProfile;
+						var customProfileInstance = Activator.CreateInstance( classType ) as UnityInputDeviceProfileBase;
 						if (customProfileInstance != null)
 						{
 							InputManager.AttachDevice( new UnityInputDevice( customProfileInstance ) );

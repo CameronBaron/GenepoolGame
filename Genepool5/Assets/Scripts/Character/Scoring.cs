@@ -3,26 +3,34 @@ using UnityEngine.UI;
 
 public class Scoring : MonoBehaviour
 {
-	public GameObject healthbar;
+	public HealthBar healthbar;
+
 	private int getColour = 0;
+	private PlayerController pc = null;
 
 	public Text score
 	{
 		get { return GetComponent<Text>(); }
 	}
 
+	void Start()
+	{
+		score.text = "0";
+	}
+
 	void Update ()
 	{
-		if (healthbar == null || healthbar.GetComponent<HealthBar>().playerRef == null)
+		if (healthbar == null || healthbar.playerRef == null)
 		{
 			gameObject.SetActive(false);
 		}
-		else if (getColour == 0 && healthbar.GetComponent<HealthBar>().playerRef != null)
+		else if (getColour == 0 && healthbar.playerRef != null)
 		{
-			score.color = healthbar.GetComponent<HealthBar>().playerRef.GetComponent<Player>().indicator.GetComponent<Renderer>().material.GetColor("_EmissionColor");
+			pc = healthbar.playerRef.GetComponent<PlayerController>();
+			score.color = pc.colour;
 			getColour++;
+			score.text = pc.stats.score.ToString();
 		}
 		
-		score.text = healthbar.GetComponent<HealthBar>().playerRef.GetComponent<Player>().score.ToString();
 	}
 }

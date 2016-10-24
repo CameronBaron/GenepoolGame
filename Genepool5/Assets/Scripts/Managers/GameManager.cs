@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 	public event OnStateChangeHandler OnStateChange;
 	public GameState gameState { get; private set; }
 
-	public Dictionary<int ,BasePlayer.PLAYERTYPE> chosenType = new Dictionary<int, BasePlayer.PLAYERTYPE>();
+	public List<int> chosenType = new List<int>();
 	public List<GameObject> players = new List<GameObject>();
 	public List<bool> isPlaying = new List<bool>();
 	public List<InputDevice> devices = new List<InputDevice>();

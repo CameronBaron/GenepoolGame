@@ -33,8 +33,6 @@ public class WeaponManager : MonoBehaviour
     // On start
     void Start()
 	{
-        device = GetComponentInParent<Player>().Device;
-
 		aK47 = Instantiate(aK47Prefab, transform.position, transform.rotation) as GameObject;
 		aK47.transform.parent = transform;
         aK47.transform.position = WeaponSpawn.transform.position;

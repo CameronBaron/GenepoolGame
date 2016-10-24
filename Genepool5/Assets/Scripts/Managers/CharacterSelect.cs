@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour
 {
@@ -36,6 +37,6 @@ public class CharacterSelect : MonoBehaviour
 
 	public void LoadGame()
 	{
-		Application.LoadLevel((int)GameState.PLAY);
+		SceneManager.LoadScene((int)GameState.PLAY);
 	}
 }

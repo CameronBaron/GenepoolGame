@@ -16,7 +16,7 @@ public class ShotgunSound : MonoBehaviour
 	void Start () 
     {
         counter = delay;
-		device = GetComponentInParent<Player>().Device;
+		device = GetComponentInParent<PlayerController>().Device;
 	}
 	
 	void Update () 

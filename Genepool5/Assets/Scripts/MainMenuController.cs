@@ -2,19 +2,13 @@
 
 public class MainMenuController : MonoBehaviour
 {
-	public float repeatDelay = 0.5f;
-	private float repeatTimer = 0;
-
 	string[] buttons = new string[4]{ "Play", "Exit" , "Yes", "No" };
 	string selected;
-	
-	private MainMenuScript MM;
 
 	// Use this for initialization
 	void Start ()
 	{
 		selected = buttons[0];
-		MM = GetComponentInParent<MainMenuScript>();
     }
 	
 	// Update is called once per frame

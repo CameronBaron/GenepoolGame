@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using InControl;
+using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -48,6 +49,6 @@ public class PauseScreen : MonoBehaviour
 
 	void LoadMenu()
 	{
-		Application.LoadLevel((int)GameState.MENU);
+		SceneManager.LoadScene((int)GameState.MENU);
 	}
 }

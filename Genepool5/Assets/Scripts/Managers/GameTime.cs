@@ -15,8 +15,6 @@ public class GameTime : MonoBehaviour
 	
 	private float sec;
 	private int min;
-	private string seconds;
-	private string minutes;
 
 	// Use this for initialization
 	void Start ()
@@ -45,8 +43,6 @@ public class GameTime : MonoBehaviour
 			sec = 59;
 			min -= 1;
 		}
-
-		minutes = min.ToString();
 
 		gameTime = min.ToString() + ":" + sec.ToString("00");
 	}

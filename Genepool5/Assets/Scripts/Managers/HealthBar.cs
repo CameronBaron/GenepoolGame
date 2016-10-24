@@ -12,7 +12,6 @@ public class HealthBar : MonoBehaviour
 
 	private int currentHealth;
 	private Health health;
-	private GameObject[] players;
 	private float healthBarY;
 	private float healthBarMinX;
 	private float healthBarMaxX;
@@ -21,8 +20,6 @@ public class HealthBar : MonoBehaviour
 	private Image backgroundRenderer;
 	private Image healthRenderer;
 	private Color currentColour;
-	private float fadeTime = 1.0f;
-	private float currentFadeTime = 0.0f;
 
     private RectTransform m_RectTransform;
 
@@ -33,14 +30,13 @@ public class HealthBar : MonoBehaviour
 		backgroundRenderer = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
 		healthRenderer = transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Image>();
 		framRenderer = transform.GetComponent<Image>();
-
-		players = GameObject.FindGameObjectsWithTag("Player");
-		for (int i = 0; i < players.Length; i++)
+		
+		foreach (GameObject p in GameManager.Instance.players)
 		{
-			if (int.Parse(name[name.Length - 1].ToString()) == players[i].GetComponent<Player>().playerID)
+			if (int.Parse(name[name.Length - 1].ToString()) == p.GetComponent<PlayerController>().playerID)
 			{
-				playerRef = players[i];
-            }
+				playerRef = p;
+			}
 		}
 
 		if (playerRef != null)
@@ -74,13 +70,7 @@ public class HealthBar : MonoBehaviour
 			current = framRenderer.color;
 			current.a = 0.0f;
 			framRenderer.color = current;
-			//if(currentFadeTime < fadeTime)
-			//{
-			//	currentFadeTime += Time.deltaTime;
-			//	float t = currentFadeTime / fadeTime;
-			//	backgroundRenderer.color = Color.Lerp(new Color(79.0f / 255, 79.0f / 255, 79.0f / 255, 1.0f), new Color(79.0f / 255, 79.0f / 255, 79.0f / 255, 0.0f), t);
-			//	healthRenderer.color = Color.Lerp(Color.red, new Color(79.0f / 255, 79.0f / 255, 79.0f / 255, 0.0f), t);
-			//}
+
 		}
 		else if (currentHealth == health.maxHP)
 		{

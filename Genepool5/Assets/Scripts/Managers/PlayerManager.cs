@@ -148,7 +148,7 @@ public class PlayerManager : MonoBehaviour
 			cam.rect = viewports.Dequeue();
 			cam.GetComponent<CameraMove>().device = inputDevice;
 			GM.devices.Add(inputDevice);
-			cam.GetComponent<CameraMove>().playerID = playerID.Dequeue();
+			//cam.GetComponent<CameraMove>().playerID = playerID.Dequeue();
 			playerCameras.Add(cam);
 			GM.isPlaying.Add(true);
 			cam.GetComponent<CameraMove>().lockedIn = false;
@@ -163,7 +163,7 @@ public class PlayerManager : MonoBehaviour
 	void RemovePlayer(Camera cam)
 	{
 		playerCameras.Remove(cam);
-		playerID.Enqueue(cam.GetComponent<CameraMove>().playerID);
+		//playerID.Enqueue(cam.GetComponent<CameraMove>().playerID);
 		cam.GetComponent<CameraMove>().device = null;
 		Destroy(cam.gameObject);
 	}

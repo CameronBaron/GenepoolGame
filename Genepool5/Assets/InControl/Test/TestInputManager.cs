@@ -54,28 +54,35 @@ namespace InControl
 		{
 			CheckForPauseButton();
 
-//			var inputDevice = InputManager.ActiveDevice;
-//			if (inputDevice.Direction.Left.WasPressed)
-//			{
-//				Debug.Log( "Left.WasPressed" );
-//			}
-//			if (inputDevice.Direction.Left.WasReleased)
-//			{
-//				Debug.Log( "Left.WasReleased" );
-//			}
-//			if (inputDevice.Action1.WasPressed)
-//			{
-//				Debug.Log( "Action1.WasPressed" );
-//			}
+			//			var inputDevice = InputManager.ActiveDevice;
+			//			if (inputDevice.Direction.Left.WasPressed)
+			//			{
+			//				Debug.Log( "Left.WasPressed" );
+			//			}
+			//			if (inputDevice.Direction.Left.WasReleased)
+			//			{
+			//				Debug.Log( "Left.WasReleased" );
+			//			}
+			//			if (inputDevice.Action1.WasPressed)
+			//			{
+			//				Debug.Log( "Action1.WasPressed" );
+			//			}
 
-//			var inputDevice = InputManager.ActiveDevice;
-//			var control = inputDevice.Action1;
-//			if (control.WasReleased)
-//			{
-//				InputManager.ClearInputState();
-//				Debug.Log( "WasPressed = " + control.WasPressed );
-//				Debug.Log( "WasReleased = " + control.WasReleased );
-//			}
+			//			var inputDevice = InputManager.ActiveDevice;
+			//			var control = inputDevice.Action1;
+			//			if (control.WasReleased)
+			//			{
+			//				InputManager.ClearInputState();
+			//				Debug.Log( "WasPressed = " + control.WasPressed );
+			//				Debug.Log( "WasReleased = " + control.WasReleased );
+			//			}
+
+			var devicesCount = InputManager.Devices.Count;
+			for (int i = 0; i < devicesCount; i++)
+			{
+				var inputDevice = InputManager.Devices[i];
+				inputDevice.Vibrate( inputDevice.LeftTrigger, inputDevice.RightTrigger );
+			}
 		}
 
 
@@ -98,7 +105,7 @@ namespace InControl
 
 			if (Input.GetKeyDown( KeyCode.R ))
 			{
-				Application.LoadLevel( "TestInputManager" );
+				Utility.LoadScene( "TestInputManager" );
 			}
 		}
 
@@ -169,15 +176,28 @@ namespace InControl
 					y += lineHeight;
 				}
 
+				GUI.Label( new Rect( x, y, x + w, y + 10 ), "GUID: " + inputDevice.GUID, style );
+				y += lineHeight;
+
 				GUI.Label( new Rect( x, y, x + w, y + 10 ), "SortOrder: " + inputDevice.SortOrder, style );
 				y += lineHeight;
 
 				GUI.Label( new Rect( x, y, x + w, y + 10 ), "LastChangeTick: " + inputDevice.LastChangeTick, style );
 				y += lineHeight;
 
+				var nativeDevice = inputDevice as NativeInputDevice;
+				if (nativeDevice != null)
+				{
+					var nativeDeviceInfo = String.Format( "VID = 0x{0:x}, PID = 0x{1:x}, VER = 0x{2:x}", nativeDevice.Info.vendorID, nativeDevice.Info.productID, nativeDevice.Info.versionNumber );
+					GUI.Label( new Rect( x, y, x + w, y + 10 ), nativeDeviceInfo, style );
+					y += lineHeight;
+				}
+
+				y += lineHeight;
+
 				foreach (var control in inputDevice.Controls)
 				{
-					if (control != null)
+					if (control != null && !Utility.TargetIsAlias( control.Target ))
 					{
 						string controlName;
 
@@ -202,9 +222,15 @@ namespace InControl
 				color = active ? new Color( 1.0f, 0.7f, 0.2f ) : Color.white;
 				if (inputDevice.IsKnown)
 				{
-					var control = inputDevice.LeftStickX;
+					var control = inputDevice.Command;
 					SetColor( control.State ? Color.green : color );
-					var label = string.Format( "{0} {1}", "Left Stick X", control.State ? "= " + control.Value : "" );
+					var label = string.Format( "{0} {1}", "Command", control.State ? "= " + control.Value : "" );
+					GUI.Label( new Rect( x, y, x + w, y + 10 ), label, style );
+					y += lineHeight;
+
+					control = inputDevice.LeftStickX;
+					SetColor( control.State ? Color.green : color );
+					label = string.Format( "{0} {1}", "Left Stick X", control.State ? "= " + control.Value : "" );
 					GUI.Label( new Rect( x, y, x + w, y + 10 ), label, style );
 					y += lineHeight;
 
@@ -335,8 +361,8 @@ namespace InControl
 		void OnDrawGizmos()
 		{
 			var inputDevice = InputManager.ActiveDevice;
-			var vector = new Vector2( inputDevice.LeftStickX, inputDevice.LeftStickY );
-//			var vector = inputDevice.LeftStick.Vector;
+//			var vector = new Vector2( inputDevice.LeftStickX, inputDevice.LeftStickY );
+			var vector = inputDevice.Direction.Vector;
 
 			Gizmos.color = Color.blue;
 			var lz = new Vector2( -3.0f, -1.0f );
